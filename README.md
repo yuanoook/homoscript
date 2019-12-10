@@ -1,4 +1,4 @@
-# Homoscript
+# Homo Script
 
 Website UI testing script for Homo
 

@@ -34,7 +34,7 @@ const find = (fn, density = 30) => {
 const Seeable = {
   walk,
   getAll,
-  seek: find,
+  find,
 };
 
 module.exports = Seeable;

@@ -31,7 +31,7 @@ const highlight = element => {
   element.style.outline = 'red solid 5px';
 };
 
-module.export = {
+module.exports = {
   triggerEvent,
   strokeKey,
   highlight,

@@ -12,7 +12,7 @@ const Homo = {
   },
 };
 
-setTimeout(() => {
+Homo.Test = () => {
   const targetValue = 'define Rango';
   Homo
     .YouSee('input')
@@ -25,10 +25,9 @@ setTimeout(() => {
     })
     .YouDo({
       action: 'input',
-      target: it,
       payload: targetValue,
     })
     .YouDo('submit');
-}, 1000);
+};
 
-export default Homo;
+module.exports = Homo;
