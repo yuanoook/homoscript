@@ -1,0 +1,25 @@
+{
+  "name": "Homo Script",
+  "description" : "Homo.YouSee('button').YouDo('click').YouSee('success!')",
+  "version": "1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "homoscript.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H",
+        "mac": "MacCtrl+Shift+H"
+      },
+      "description": "Homo Script"
+    }
+  },
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "options_page": "options.html"
+}
