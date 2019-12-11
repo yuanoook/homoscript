@@ -1,4 +1,4 @@
-const Seeable = require('./seeable');
+const Seeable = require('../lib/seeable');
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];

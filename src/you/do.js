@@ -2,10 +2,10 @@ const {
   triggerEvent,
   strokeKey,
   highlight,
-} = require('./actions');
+} = require('../lib/actions');
 const {
   getLastSeen,
-} = require('./yousee');
+} = require('./see');
 
 const delegate = (action, target, payload) => {
   switch(action) {

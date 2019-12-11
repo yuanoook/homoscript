@@ -1,5 +1,5 @@
-const YouSee = require('./yousee');
-const YouDo = require('./youdo');
+const YouSee = require('./you/see');
+const YouDo = require('./you/do');
 
 const Homo = {
   YouSee: function() {
@@ -23,10 +23,8 @@ Homo.Test = () => {
         value: v => v !== targetValue,
       },
     })
-    .YouDo({
-      action: 'input',
-      payload: targetValue,
-    })
+    .YouUse(targetValue)
+    .YouDo('input')
     .YouDo('submit');
 };
 
