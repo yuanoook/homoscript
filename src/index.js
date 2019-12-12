@@ -1,5 +1,6 @@
 const YouSee = require('./you/see');
 const YouDo = require('./you/do');
+const YouUse = require('./you/use');
 
 const Homo = {
   YouSee: function() {
@@ -10,6 +11,10 @@ const Homo = {
     YouDo.apply(null, arguments);
     return Homo;
   },
+  YouUse: function() {
+    YouUse.apply(null, arguments);
+    return Homo;
+  }
 };
 
 Homo.Test = () => {

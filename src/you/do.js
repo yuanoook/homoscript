@@ -6,6 +6,7 @@ const {
 const {
   getLastSeen,
 } = require('./see');
+const memory = require('../lib/memory');
 
 const delegate = (action, target, payload) => {
   switch(action) {
@@ -38,10 +39,11 @@ const YouDo = sth => {
   if (typeof sth === 'string') {
     action = sth;
     target = getLastSeen();
+    payload = memory.remember('payload');
   } else if (typeof sth === 'object') {
     action = sth.action;
     target = sth.target || getLastSeen();
-    payload = sth.payload;
+    payload = sth.payload || memory.remember('payload');
   }
   if (!target ) {
     return;
