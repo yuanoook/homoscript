@@ -45,7 +45,6 @@ const YouDo = sth => {
     target = sth.target || getLastSeen();
     payload = sth.payload || memory.remember('payload');
   }
-  console.log(sth, target, payload);
   if (!target ) {
     return;
   }

@@ -2732,13 +2732,15 @@ var useSelect = function useSelect(options) {
   return [select, selectUI];
 };
 
-var Speech2Text = function Speech2Text() {
+var Speech2Text = function Speech2Text(_ref2) {
+  var onInputProp = _ref2.onInput;
+
   var _useSelect = useSelect(langOptions),
       _useSelect2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useSelect, 2),
       lang = _useSelect2[0],
       langSelectUI = _useSelect2[1];
 
-  var _useState = Object(ganic_usex__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
+  var _useState = Object(ganic_usex__WEBPACK_IMPORTED_MODULE_2__["useState"])(true),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
       on = _useState2[0],
       setOn = _useState2[1];
@@ -2758,6 +2760,10 @@ var Speech2Text = function Speech2Text() {
       error = _useState8[0],
       onError = _useState8[1];
 
+  var onInput = Object(ganic_usex__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (i, onInput) {
+    onInterim(i);
+    onInput(i);
+  }, onInputProp);
   var SRProps = {
     lang: lang,
     on: on,
@@ -2771,7 +2777,7 @@ var Speech2Text = function Speech2Text() {
       maxWidth: '100px'
     },
     onFinal: onFinal,
-    onInterim: onInterim,
+    onInterim: onInput,
     onError: onError
   };
   return ganic__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ganic__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, langSelectUI, ganic__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_SpeechRecognition__WEBPACK_IMPORTED_MODULE_3__["default"], SRProps), ganic__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), _final, " ", interim, ganic__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), ganic__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
@@ -2983,8 +2989,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var test = function test() {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+    chrome.tabs.executeScript(tabs[0].id, {
+      code: 'Homo.Start();'
+    });
+  });
+};
+
+var onInput = function onInput(text) {
+  if (/test/i.test(text)) {
+    test();
+  }
+};
+
 var App = function App() {
-  return ganic__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Speech2Text__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+  return ganic__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Speech2Text__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    onInput: onInput
+  });
 };
 
 ganic_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(ganic__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('app'));
@@ -3006,16 +3031,7 @@ changeColor.onclick = function (element) {
   });
 };
 
-test.onclick = function () {
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true
-  }, function (tabs) {
-    chrome.tabs.executeScript(tabs[0].id, {
-      code: 'Homo.Start();'
-    });
-  });
-};
+test.onclick = test;
 
 /***/ }),
 

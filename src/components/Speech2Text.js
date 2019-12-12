@@ -1,7 +1,7 @@
 // https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
 
 import Ganic from 'ganic';
-import { useState, useMemo } from 'ganic-usex';
+import { useState, useMemo, useCallback } from 'ganic-usex';
 import SpeechRecognition from './SpeechRecognition';
 import useStorage from '../shared/useStorage';
 
@@ -42,12 +42,19 @@ const useSelect = options => {
   return [select, selectUI];
 }
 
-const Speech2Text = () => {
+const Speech2Text = ({
+  onInput: onInputProp,
+}) => {
   const [lang, langSelectUI] = useSelect(langOptions);
-  const [on, setOn] = useState(false);
+  const [on, setOn] = useState(true);
   const [final, onFinal] = useState('');
   const [interim, onInterim] = useState('');
   const [error, onError] = useState('');
+  const onInput = useCallback((i, onInput) => {
+    onInterim(i);
+    onInput(i);
+  }, onInputProp);
+
   const SRProps = {
     lang,
     on,
@@ -57,7 +64,7 @@ const Speech2Text = () => {
       maxWidth: '100px',
     },
     onFinal: onFinal,
-    onInterim: onInterim,
+    onInterim: onInput,
     onError: onError,
   };
 
