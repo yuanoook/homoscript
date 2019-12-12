@@ -1,10 +1,13 @@
-const Seeable = require('../lib/seeable');
+import Seeable from '../lib/seeable';
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
 
 const checkType = (el, type) => {
   if (type === 'input') {
+    if (el.type === 'submit') {
+      return false;
+    }
     type = 'input|textarea';
   }
   const typeReg = new RegExp(type, 'i');
@@ -12,14 +15,10 @@ const checkType = (el, type) => {
 }
 
 const checkDesc = (el, desc) => {
-  if (!el) {
-    return false;
-  }
-
   if (desc) {
     if (typeof desc === 'function') {
       return Boolean(desc(el));
-    } else if (typeof desc === 'object') {
+    } else if (el && typeof desc === 'object') {
       return !Object.keys(desc).find(
         key => !checkDesc(el[key], desc[key])
       );
@@ -53,16 +52,16 @@ const YouSee = sth => {
   return el;
 };
 
-YouSee.getLastSeen = () => {
+export const getLastSeen = () => {
   return youHaveSeenList[youHaveSeenList.length - 1];
 };
 
-YouSee.newScreen = () => {
+export const newScreen = () => {
   youHaveSeenScreens.push([...youHaveSeenList]);
   youHaveSeenList.length = 0;
 };
 
-YouSee.previousScreen = () => {
+export const previousScreen = () => {
   if (youHaveSeenScreens.length) {
     youHaveSeenList = youHaveSeenScreens[youHaveSeenScreens.length - 1];
     youHaveSeenScreens.length --;
@@ -71,4 +70,4 @@ YouSee.previousScreen = () => {
   }
 };
 
-module.exports = YouSee;
+export default YouSee;

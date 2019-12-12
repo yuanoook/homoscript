@@ -18,3 +18,13 @@ chrome.runtime.onInstalled.addListener(function() {
     }]);
   });
 });
+
+setTimeout(() => {
+  navigator.mediaDevices.getUserMedia({ audio: true })
+  .catch(function() {
+      chrome.tabs.create({
+          url: chrome.extension.getURL("options/index.html"),
+          selected: true
+      })
+  });
+}, 100);
