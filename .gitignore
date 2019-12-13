@@ -1,3 +1,5 @@
+extension/background/index.js
+extension/options/index.js
 extension/content/index.js
 extension/popup/index.js
 
