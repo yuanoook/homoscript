@@ -3,10 +3,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: {
-    background: path.join(__dirname, 'src', 'background.js'),
-    options: path.join(__dirname, 'src', 'options.js'),
-    content: path.join(__dirname, 'src', 'content.js'),
-    popup: path.join(__dirname, 'src', 'popup.js'),
+    background: path.join(__dirname, 'src/extension', 'background.js'),
+    options: path.join(__dirname, 'src/extension', 'options.js'),
+    content: path.join(__dirname, 'src/extension', 'content.js'),
+    popup: path.join(__dirname, 'src/extension/popup', 'index.js'),
   },
   devtool: false,
   output: {

@@ -1,4 +1,4 @@
-import Homo from './homo/index';
+import Homo from '../homo/index';
 
 export const Search = query => {
   Homo
