@@ -1,4 +1,5 @@
 extension/content/index.js
+extension/popup/index.js
 
 # Logs
 logs
