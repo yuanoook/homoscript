@@ -19,12 +19,17 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
-setTimeout(() => {
+const requestForMicrophonePermit = () => {
   navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(function(stream) {
+     stream.getTracks()[0].stop();
+  })
   .catch(function() {
       chrome.tabs.create({
           url: chrome.extension.getURL("options/index.html"),
           selected: true
       })
   });
-}, 100);
+};
+
+setTimeout(requestForMicrophonePermit, 100);
