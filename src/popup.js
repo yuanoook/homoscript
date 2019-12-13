@@ -9,9 +9,19 @@ import {
 
 const search = query => {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: `Homo.Search("${query}");`});
+    const currentTab = tabs[0];
+    const chromePage = /^chrome:\/\//.test(currentTab.url);
+    if (chromePage) {
+      chrome.tabs.update(
+        currentTab.id,
+        {url: `https://www.google.com/search?q=${query}`}
+      );
+    } else {
+      chrome.tabs.executeScript(
+        currentTab.id,
+        {code: `Homo.Search("${query}");`}
+      );
+    }
   });
 };
 

@@ -27,6 +27,6 @@
       "description": "Homo Script"
     }
   },
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["tabs", "activeTab", "declarativeContent", "storage"],
   "options_page": "options/index.html"
 }
