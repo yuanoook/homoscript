@@ -1,13 +1,21 @@
 import search from './search';
+import {
+  homoStart,
+  getLines,
+  getLast,
+} from '../../shared/utils';
 
-const execCommand = (commands = '') => {
-  commands = commands.split('\n');
-  const text = commands[commands.length - 1].trim();
-  const searchRegex = /^search\s/i;
-  if (searchRegex.test(text)) {
-    const query = text.replace(searchRegex, '');
+const searchRegex = /^search\s/i;
+
+const exec = (str = '') => {
+  const lines = getLines(str);
+  const lastLine = getLast(lines);
+  if (lines.length === 1 && searchRegex.test(lastLine)) {
+    const query = lastLine.replace(searchRegex, '');
     search(query);
+    return;
   }
+  homoStart(str);
 };
 
-export default execCommand;
+export default exec;

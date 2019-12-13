@@ -1,7 +1,7 @@
 {
   "name": "Homo Script",
   "description" : "Homo.YouSee('button').YouDo('click').YouSee('success!')",
-  "version": "2.2",
+  "version": "2.2.2",
   "manifest_version": 2,
   "browser_action": {
     "default_popup": "popup/index.html",
