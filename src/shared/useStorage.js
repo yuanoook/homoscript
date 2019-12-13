@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState } from "ganic-usex";
+import { getVersion } from "./utils";
 
 const getStoredValue = (key, initValue) => {
   if (!key) {
@@ -23,6 +24,7 @@ const setStoredValue = (key, value) => {
 };
 
 const useStorage = (key, defaultValue) => {
+  key = key ? (key + '@' + getVersion()) : key;
   const [value, setValue] = useState(() => getStoredValue(key, defaultValue));
   setStoredValue(key, value);
   return [value, setValue];

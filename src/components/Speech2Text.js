@@ -5,6 +5,8 @@ import { useState, useMemo, useCallback } from 'ganic-usex';
 import SpeechRecognition from './SpeechRecognition';
 import useStorage from '../shared/useStorage';
 
+const nullFn = () => {};
+
 const langs = {
   'en-US': 'English (US)',
   'cmn-Hans-CN': '普通话 (中国大陆)',
@@ -43,10 +45,12 @@ const useSelect = options => {
 }
 
 const Speech2Text = ({
-  onInput: onInputProp,
+  onInput: onInputProp = nullFn,
+  onChange: onChangeProp = nullFn,
+  initOn = true,
 }) => {
   const [lang, langSelectUI] = useSelect(langOptions);
-  const [on, setOn] = useState(true);
+  const [on, setOn] = useState(initOn);
   const [final, onFinal] = useState('');
   const [interim, onInterim] = useState('');
   const [error, onError] = useState('');
@@ -54,16 +58,19 @@ const Speech2Text = ({
     onInterim(i);
     onInput(i);
   }, onInputProp);
+  const onChange = useCallback((i, onChange) => {
+    onFinal(i);
+    onChange(i);
+  }, onChangeProp);
 
   const SRProps = {
     lang,
     on,
     onClick: () => setOn(o => !o),
     style: {
-      margin: '100px',
-      maxWidth: '100px',
+      maxWidth: '50px',
     },
-    onFinal: onFinal,
+    onFinal: onChange,
     onInterim: onInput,
     onError: onError,
   };

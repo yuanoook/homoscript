@@ -26,21 +26,23 @@ const useRecognition = ({
   useEffect(() => {
     let _recognizing = false;
     let final = '';
-    let ignore_onend;
-    let start_timestamp;
+    let ignoreOnEnd;
+    let startAt;
+    let newStart;
 
     const recognition = new window.webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
   
     recognition.onstart = function() {
+      newStart = true;
       setRecognizing(_recognizing = true);
       ref.onStart(recognition);
     };
     recognition.onerror = function(event) {
-      ignore_onend = true;
+      ignoreOnEnd = true;
       ref.onError({
-        'not-allowed': Date.now() - start_timestamp < 100 ? 'blocked' : 'denied',
+        'not-allowed': Date.now() - startAt < 100 ? 'blocked' : 'denied',
         'no-speech': 'no_speech',
         'audio-capture': 'no_microphone',
         'network': 'no_network',
@@ -48,7 +50,7 @@ const useRecognition = ({
     };
     recognition.onend = function() {
       setRecognizing(_recognizing = false);
-      if (ignore_onend) {
+      if (ignoreOnEnd) {
         return;
       }
       if (!final) {
@@ -69,16 +71,24 @@ const useRecognition = ({
           interim += event.results[i][0].transcript;
         }
       }
-      ref.onFinal(final);
-      ref.onInterim(interim);
+      if (newStart && !final) {
+        newStart = false;
+        ref.onFinal(final);
+      }
+      if (final) {
+        ref.onFinal(final);
+      }
+      if (final || interim) {
+        ref.onInterim(interim);
+      }
     };
 
     const turnOn = () => {
       final = '';
       recognition.lang = ref.lang;
       recognition.start();
-      ignore_onend = false;
-      start_timestamp = Date.now();
+      ignoreOnEnd = false;
+      startAt = Date.now();
     };
 
     const turnOff = () => {
