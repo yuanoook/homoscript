@@ -23,13 +23,14 @@ export const google = query => {
   open(`https://www.google.com/search?q=${query}`);
 };
 
-export const searchInSite = query => {
+export const execInSite = code => {
   accessCurrentTab(tab => {
-    chrome.tabs.executeScript(tab.id, {
-      code: `Homo.Search("${query}");`
-    });
+    chrome.tabs.executeScript(tab.id, { code });
   });
 };
+
+export const homoStart = line => execInSite(`Homo.Start('${line}')`);
+export const searchInSite = query => execInSite(`Homo.Search('${query}')`);
 
 export const checkWebTab = (yesFn, noFn) => {
   accessCurrentTab(currentTab => {
