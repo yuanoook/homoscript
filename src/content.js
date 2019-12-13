@@ -9,7 +9,7 @@ export const Search = query => {
     .YouSee({
       type: 'input',
       desc: {
-        type: 'text',
+        type: /text|search/,
         value: v => v !== query,
       },
     })

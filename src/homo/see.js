@@ -26,6 +26,10 @@ const checkDesc = (el, desc) => {
     );
   }
 
+  if (desc instanceof RegExp) {
+    return desc.test(el);
+  }
+
   return desc === el;
 };
 
