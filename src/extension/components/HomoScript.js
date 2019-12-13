@@ -4,9 +4,6 @@ import useStorage from '../../shared/useStorage';
 import exec from '../commands/exec';
 
 const toCommands = lines => lines.split('\n').map(x => x.trim()).filter(x => x);
-const runCommands = commands => {
-  
-};
 
 const HomoScript = () => {
   const [lines, setLines] = useStorage('homoscript_extension_popup_lines', '');
