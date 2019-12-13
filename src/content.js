@@ -1,17 +1,18 @@
 import Homo from './homo/index';
 
-export const Start = () => {
-  const targetValue = 'define Rango';
+export const Search = query => {
   Homo
+    .YouDo('scroll_to_top')
     .YouSee('input')
     .YouDo('highlight')
     .YouSee({
       type: 'input',
       desc: {
-        value: v => v !== targetValue,
+        type: 'text',
+        value: v => v !== query,
       },
     })
-    .YouUse(targetValue)
+    .YouUse(query)
     .YouDo('input')
     .YouDo('submit');
 };

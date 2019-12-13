@@ -8,24 +8,25 @@ const checkType = (el, type) => {
     if (el.type === 'submit') {
       return false;
     }
-    type = 'input|textarea';
   }
   const typeReg = new RegExp(type, 'i');
   return typeReg.test(el.tagName);
 }
 
 const checkDesc = (el, desc) => {
-  if (desc) {
-    if (typeof desc === 'function') {
-      return Boolean(desc(el));
-    } else if (el && typeof desc === 'object') {
-      return !Object.keys(desc).find(
-        key => !checkDesc(el[key], desc[key])
-      );
-    }
+  if (desc === undefined || desc === null) {
+    return true;
   }
 
-  return true;
+  if (typeof desc === 'function') {
+    return Boolean(desc(el));
+  } else if (el && typeof desc === 'object') {
+    return !Object.keys(desc).find(
+      key => !checkDesc(el[key], desc[key])
+    );
+  }
+
+  return desc === el;
 };
 
 const YouSee = sth => {
