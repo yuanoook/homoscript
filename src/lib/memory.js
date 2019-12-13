@@ -1,6 +1,6 @@
 const cache = {};
 
-const momorize = (key, value) => {
+const memorize = (key, value) => {
   cache[key] = cache[key] || [];
   cache[key].push(value);
 };
@@ -10,7 +10,7 @@ const remember = (key) => {
 };
 
 const memory = {
-  momorize,
+  memorize,
   remember,
 };
 

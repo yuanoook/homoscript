@@ -3,12 +3,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: path.join(__dirname, 'src', 'index.js'),
+    content: path.join(__dirname, 'src', 'content.js'),
+    popup: path.join(__dirname, 'src', 'popup.js'),
   },
   devtool: false,
   output: {
-    path: path.join(__dirname, 'extension/content'),
-    filename: '[name].js',
+    path: path.join(__dirname, 'extension'),
+    filename: '[name]/index.js',
     library: 'Homo',
   },
   resolve: {

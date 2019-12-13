@@ -19,3 +19,5 @@ function constructOptions(kButtonColors) {
   }
 }
 constructOptions(kButtonColors);
+
+navigator.mediaDevices.getUserMedia({audio: true});

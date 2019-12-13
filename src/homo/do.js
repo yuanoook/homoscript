@@ -1,11 +1,12 @@
-const {
+import {
   triggerEvent,
   strokeKey,
   highlight,
-} = require('../lib/actions');
-const {
+} from '../lib/actions';
+import {
   getLastSeen,
-} = require('./see');
+} from './see';
+import memory from '../lib/memory';
 
 const delegate = (action, target, payload) => {
   switch(action) {
@@ -38,10 +39,11 @@ const YouDo = sth => {
   if (typeof sth === 'string') {
     action = sth;
     target = getLastSeen();
+    payload = memory.remember('payload');
   } else if (typeof sth === 'object') {
     action = sth.action;
     target = sth.target || getLastSeen();
-    payload = sth.payload;
+    payload = sth.payload || memory.remember('payload');
   }
   if (!target ) {
     return;
@@ -49,4 +51,4 @@ const YouDo = sth => {
   delegate(action, target, payload);
 };
 
-module.exports = YouDo;
+export default YouDo;
