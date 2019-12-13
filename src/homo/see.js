@@ -1,32 +1,36 @@
-const Seeable = require('./seeable');
+import Seeable from '../lib/seeable';
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
 
 const checkType = (el, type) => {
   if (type === 'input') {
-    type = 'input|textarea';
+    if (el.type === 'submit') {
+      return false;
+    }
   }
   const typeReg = new RegExp(type, 'i');
   return typeReg.test(el.tagName);
 }
 
 const checkDesc = (el, desc) => {
-  if (!el) {
-    return false;
+  if (desc === undefined || desc === null) {
+    return true;
   }
 
-  if (desc) {
-    if (typeof desc === 'function') {
-      return Boolean(desc(el));
-    } else if (typeof desc === 'object') {
-      return !Object.keys(desc).find(
-        key => !checkDesc(el[key], desc[key])
-      );
-    }
+  if (typeof desc === 'function') {
+    return Boolean(desc(el));
+  } else if (el && typeof desc === 'object') {
+    return !Object.keys(desc).find(
+      key => !checkDesc(el[key], desc[key])
+    );
   }
 
-  return true;
+  if (desc instanceof RegExp) {
+    return desc.test(el);
+  }
+
+  return desc === el;
 };
 
 const YouSee = sth => {
@@ -39,6 +43,12 @@ const YouSee = sth => {
     number = sth.number;
     position = sth.position;
   };
+
+  if (type === 'window') {
+    youHaveSeenList.push(window);
+    return window;
+  }
+
   const el = Seeable.find(e => {
     const typeMatch = checkType(e, type);
     if (!typeMatch) {
@@ -53,16 +63,16 @@ const YouSee = sth => {
   return el;
 };
 
-YouSee.getLastSeen = () => {
+export const getLastSeen = () => {
   return youHaveSeenList[youHaveSeenList.length - 1];
 };
 
-YouSee.newScreen = () => {
+export const newScreen = () => {
   youHaveSeenScreens.push([...youHaveSeenList]);
   youHaveSeenList.length = 0;
 };
 
-YouSee.previousScreen = () => {
+export const previousScreen = () => {
   if (youHaveSeenScreens.length) {
     youHaveSeenList = youHaveSeenScreens[youHaveSeenScreens.length - 1];
     youHaveSeenScreens.length --;
@@ -71,4 +81,4 @@ YouSee.previousScreen = () => {
   }
 };
 
-module.exports = YouSee;
+export default YouSee;

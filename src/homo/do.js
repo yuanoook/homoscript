@@ -1,14 +1,18 @@
-const {
+import {
   triggerEvent,
   strokeKey,
   highlight,
-} = require('./actions');
-const {
+} from '../lib/actions';
+import {
   getLastSeen,
-} = require('./yousee');
+} from './see';
+import memory from '../lib/memory';
 
 const delegate = (action, target, payload) => {
   switch(action) {
+    case 'scroll_to_top_left':
+      target.scrollTo(0, 0);
+      break;
     case 'focus':
       triggerEvent(target, 'focus');
       break;
@@ -24,7 +28,9 @@ const delegate = (action, target, payload) => {
       triggerEvent(target, 'focus');
       strokeKey(target, 13);
       const form = target.form || target;
-      form.submit();
+      if (typeof form.submit === 'function') {
+        form.submit();
+      }
       break;
     case 'highlight':
     default:
@@ -38,10 +44,11 @@ const YouDo = sth => {
   if (typeof sth === 'string') {
     action = sth;
     target = getLastSeen();
+    payload = memory.remember('payload');
   } else if (typeof sth === 'object') {
     action = sth.action;
     target = sth.target || getLastSeen();
-    payload = sth.payload;
+    payload = sth.payload || memory.remember('payload');
   }
   if (!target ) {
     return;
@@ -49,4 +56,4 @@ const YouDo = sth => {
   delegate(action, target, payload);
 };
 
-module.exports = YouDo;
+export default YouDo;
