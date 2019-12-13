@@ -1,6 +1,6 @@
-const openExtensionPage = () => {
+const openExtensionPage = page => {
   chrome.tabs.create({
-    url: chrome.extension.getURL(),
+    url: chrome.extension.getURL(page),
     selected: true,
   });
 };
