@@ -3,7 +3,7 @@
 import Ganic from 'ganic';
 import { useState, useMemo, useCallback } from 'ganic-usex';
 import SpeechRecognition from './SpeechRecognition';
-import useStorage from '../shared/useStorage';
+import useStorage from '../../shared/useStorage';
 
 const nullFn = () => {};
 
