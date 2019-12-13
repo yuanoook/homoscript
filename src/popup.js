@@ -1,6 +1,11 @@
 import Ganic from 'ganic';
 import Speech2Text from './components/Speech2Text';
 import GanicDOM from 'ganic-dom';
+import {
+  useState,
+  useEffect,
+  useDebounce
+} from 'ganic-usex';
 
 const search = query => {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -19,7 +24,11 @@ const onInput = (text = '') => {
   }
 };
 
-const App = () => <Speech2Text onInput={onInput}/>;
+const App = () => {
+  const [text, setText] = useState('');
+  useEffect(onInput, useDebounce(text, 500));
+  return <Speech2Text onInput={setText}/>
+};
 GanicDOM.render(<App />, document.getElementById('app'));
 
 
