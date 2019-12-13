@@ -12,13 +12,11 @@ const HomoScript = () => {
   const start = () => exec(lines);
 
   return <div>
-    <textarea value={lines} onInput={onInput}/>
+    <div style={{display:'flex'}}>
+      <textarea value={lines} onInput={onInput}/>
+      <pre style={{fontSize: '11px', margin: 0}}>{lines}</pre>
+    </div>
     <button onClick={start}>Start</button>
-    <pre>
-      {
-        commands
-      }
-    </pre>
   </div>
 }
 
