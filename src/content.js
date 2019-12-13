@@ -2,7 +2,8 @@ import Homo from './homo/index';
 
 export const Search = query => {
   Homo
-    .YouDo('scroll_to_top')
+    .YouSee('window')
+    .YouDo('scroll_to_top_left')
     .YouSee('input')
     .YouDo('highlight')
     .YouSee({
@@ -17,4 +18,4 @@ export const Search = query => {
     .YouDo('submit');
 };
 
-export default Homo;
+export default Homo.default || Homo;

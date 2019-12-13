@@ -39,6 +39,12 @@ const YouSee = sth => {
     number = sth.number;
     position = sth.position;
   };
+
+  if (type === 'window') {
+    youHaveSeenList.push(window);
+    return window;
+  }
+
   const el = Seeable.find(e => {
     const typeMatch = checkType(e, type);
     if (!typeMatch) {

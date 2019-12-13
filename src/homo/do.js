@@ -10,8 +10,8 @@ import memory from '../lib/memory';
 
 const delegate = (action, target, payload) => {
   switch(action) {
-    case 'scroll_to_top':
-      window.scrollTo(0,0);
+    case 'scroll_to_top_left':
+      target.scrollTo(0, 0);
       break;
     case 'focus':
       triggerEvent(target, 'focus');
