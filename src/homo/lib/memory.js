@@ -5,13 +5,13 @@ const memorize = (key, value) => {
   cache[key].push(value);
 };
 
-const remember = (key) => {
+const recall = (key) => {
   return cache[key] && cache[key][cache[key].length - 1];
 };
 
 const memory = {
   memorize,
-  remember,
+  recall,
 };
 
 module.exports = memory;
