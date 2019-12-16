@@ -1,7 +1,8 @@
 import {
   triggerEvent,
-  strokeKey,
   highlight,
+  input,
+  submit,
 } from './lab/actions';
 import {
   getLastSeen,
@@ -17,20 +18,10 @@ const delegate = (action, target, payload) => {
       triggerEvent(target, 'focus');
       break;
     case 'input':
-      triggerEvent(target, 'click');
-      triggerEvent(target, 'focus');
-      target.value = payload;
-      triggerEvent(target, 'change');
-      triggerEvent(target, 'blur');
+      input(target, payload);
       break;
     case 'submit':
-      triggerEvent(target, 'click');
-      triggerEvent(target, 'focus');
-      strokeKey(target, 13);
-      const form = target.form || target;
-      if (typeof form.submit === 'function') {
-        form.submit();
-      }
+      submit(target);
       break;
     case 'highlight':
     default:
