@@ -2,11 +2,11 @@ import {
   triggerEvent,
   strokeKey,
   highlight,
-} from './lib/actions';
+} from './lab/actions';
 import {
   getLastSeen,
 } from './see';
-import memory from './lib/memory';
+import memory from './lab/memory';
 
 const delegate = (action, target, payload) => {
   switch(action) {

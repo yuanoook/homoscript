@@ -1,4 +1,4 @@
-import Seeable from './lib/seeable';
+import Seeable from './lab/seeable';
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
