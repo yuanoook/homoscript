@@ -3,6 +3,20 @@ import Seeable from './lab/seeable';
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
 
+const anotherRegex = /another\s/;
+const parseType = str => {
+  if (anotherRegex.test(str)) {
+    return {
+      another: true,
+      type: str.replace(anotherRegex, ''),
+    };
+  }
+  return {
+    another: false,
+    type: str,
+  };
+};
+
 const checkType = (el, type) => {
   if (type === 'input') {
     if (el.type === 'submit') {
@@ -33,16 +47,20 @@ const checkDesc = (el, desc) => {
   return desc === el;
 };
 
+const haveYouEverSeen = el => youHaveSeenList.indexOf(el) > -1;
+
 const YouSee = sth => {
-  let type, desc, number, position;
+  let toParseType, desc, number, position;
   if (typeof sth === 'string') {
-    type = sth;
+    toParseType = sth;
   } else if (typeof sth === 'object') {
-    type = sth.type;
+    toParseType = sth.type;
     desc = sth.desc;
     number = sth.number;
     position = sth.position;
   };
+
+  const {type, another} = parseType(toParseType);
 
   if (type === 'window') {
     youHaveSeenList.push(window);
@@ -54,11 +72,17 @@ const YouSee = sth => {
     if (!typeMatch) {
       return false;
     }
+    if (another && haveYouEverSeen(e)) {
+      return false;
+    }
     const descMatch = checkDesc(e, desc);
     if (descMatch) {
       return true;
     }
   });
+
+  console.log(sth, type, another, desc, number, position, el);
+
   youHaveSeenList.push(el);
   return el;
 };
