@@ -6,7 +6,7 @@ import {
 } from 'ganic-usex';
 import Speech2Text from '../components/Speech2Text';
 import HomoScript from '../components/HomoScript';
-import useStorage from '../../shared/useStorage';
+import useStorage from '../shared/useStorage';
 import exec from '../commands/exec';
 
 let firstTime = true;

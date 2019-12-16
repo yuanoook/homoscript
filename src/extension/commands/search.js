@@ -2,7 +2,7 @@ import {
   checkWebTab,
   searchInSite,
   google,
-} from '../../shared/utils';
+} from '../shared/utils';
 
 const search = query => {
   checkWebTab(

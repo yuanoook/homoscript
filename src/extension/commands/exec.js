@@ -3,7 +3,7 @@ import {
   homoStart,
   getLines,
   getLast,
-} from '../../shared/utils';
+} from '../shared/utils';
 
 const searchRegex = /^search\s/i;
 

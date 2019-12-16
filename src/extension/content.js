@@ -1,5 +1,5 @@
 import Homo from '../homo/index';
-import { getLines } from '../shared/utils';
+import { getLines } from './shared/utils';
 
 export const Search = query => {
   Homo

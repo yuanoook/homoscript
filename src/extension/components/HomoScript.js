@@ -1,6 +1,6 @@
 import Ganic from 'ganic';
 import { useCallback } from 'ganic-usex';
-import useStorage from '../../shared/useStorage';
+import useStorage from '../shared/useStorage';
 import exec from '../commands/exec';
 
 const HomoScript = () => {
