@@ -1,5 +1,5 @@
 import Seeable from './lab/seeable';
-import { focusOn } from './lab/view';
+import { lookAtElement } from './look';
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
@@ -50,6 +50,11 @@ const checkDesc = (el, desc) => {
 
 const haveYouEverSeen = el => youHaveSeenList.indexOf(el) > -1;
 
+const seen = el => {
+  youHaveSeenList.push(window);
+  lookAtElement(el);
+};
+
 const YouSee = sth => {
   let toParseType, desc, number, position;
   if (typeof sth === 'string') {
@@ -64,8 +69,7 @@ const YouSee = sth => {
   const {type, another} = parseType(toParseType);
 
   if (type === 'window') {
-    youHaveSeenList.push(window);
-    focusOn(window);
+    seen(window);
     return window;
   }
 
@@ -83,8 +87,7 @@ const YouSee = sth => {
     }
   });
 
-  youHaveSeenList.push(el);
-  focusOn(el);
+  seen(el);
   return el;
 };
 

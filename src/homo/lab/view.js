@@ -22,12 +22,20 @@ const getFocusAreaDiff = desc => {
   };
   Object.keys(diffs).forEach(key => {
     if (desc[key]) {
-      diffs[key] = 0.5;
+      diffs[key] = 1/3;
     }
     if (desc.corner) {
-      diffs[key] *= 0.5;
+      diffs[key] *= 1/3;
     }
   });
+  if (desc.center) {
+    if (!diffs.top && !diffs.bottom) {
+      diffs.top = diffs.bottom = 2/3;
+    }
+    if (!diffs.right && !diffs.left) {
+      diffs.right = diffs.left = 2/3;
+    }
+  };
   return diffs;
 };
 
@@ -40,6 +48,7 @@ const parseDesc = text => {
     'top',
     'bottom',
     'corner',
+    'center',
   ].reduce((obj, key) => {
     obj[key] = words.indexOf(key) > -1;
     return obj;
@@ -91,7 +100,7 @@ export const navigate = text => {
   return newFocusArea;
 };
 
-export const focusOn = el => {
+export const setViewOn = el => {
   if (!el) {
     return;
   }

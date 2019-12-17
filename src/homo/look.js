@@ -1,4 +1,4 @@
-import { navigate } from './lab/view';
+import { navigate, setViewOn, getCurrentFocusArea } from './lab/view';
 
 const areaLines = {};
 const makeLine = (key) => {
@@ -36,6 +36,11 @@ const focus = ({x1, y1, width, height}) => {
   makeVerticalLine(2, x1 + width, y1, height);
   makeHorizontalLine(3, x1, y1, width);
   makeHorizontalLine(4, x1, y1 + height, width);
+};
+
+export const lookAtElement = el => {
+  setViewOn(el);
+  focus(getCurrentFocusArea());
 };
 
 const YouLook = text => {
