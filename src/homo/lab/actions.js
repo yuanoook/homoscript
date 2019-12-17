@@ -1,5 +1,5 @@
 const highlight = element => {
-  element.style.outline = 'red solid 5px';
+  element.style.outline = 'red inset 2px';
 };
 
 const triggerEvent = (target, name) => {

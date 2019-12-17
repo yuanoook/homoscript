@@ -1,10 +1,11 @@
+import { getCurrentFocusArea } from './view';
+
 const walk = (density = 30, fn) => {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const {x1, y1, width, height} = getCurrentFocusArea();
   for (let x = 0; x <= density; x++) {
-    const clientX = x * width / density;
+    const clientX = x1 + x * width / density;
     for (let y = 0; y <= density; y++) {
-      const clientY = y * height / density;
+      const clientY = y1 + y * height / density;
       const element = document.elementFromPoint(clientX, clientY);
       if (element && (fn(element) === false)) {
         return;
@@ -37,4 +38,4 @@ const Seeable = {
   find,
 };
 
-module.exports = Seeable;
+export default Seeable;

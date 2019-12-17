@@ -25,7 +25,6 @@ const execLine = line => {
   }
   const [verb, x] = parseLine(line);
   if (verb && x) {
-    console.log('verb x: ', verb, x);
     Homo[verb](x);
   };
 }

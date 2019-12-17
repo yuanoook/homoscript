@@ -17,7 +17,10 @@ const delegate = (action, target, payload) => {
     case 'focus':
       triggerEvent(target, 'focus');
       break;
-    case 'input':
+    case 'click':
+      triggerEvent(target, 'click');
+      break;
+      case 'input':
       input(target, payload);
       break;
     case 'submit':

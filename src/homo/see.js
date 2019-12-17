@@ -1,4 +1,5 @@
 import Seeable from './lab/seeable';
+import { focusOn } from './lab/view';
 
 const youHaveSeenScreens = [];
 const youHaveSeenList = [];
@@ -64,6 +65,7 @@ const YouSee = sth => {
 
   if (type === 'window') {
     youHaveSeenList.push(window);
+    focusOn(window);
     return window;
   }
 
@@ -81,9 +83,8 @@ const YouSee = sth => {
     }
   });
 
-  console.log(sth, type, another, desc, number, position, el);
-
   youHaveSeenList.push(el);
+  focusOn(el);
   return el;
 };
 
