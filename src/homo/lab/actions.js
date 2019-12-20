@@ -3,6 +3,10 @@ const highlight = element => {
 };
 
 const triggerEvent = (target, name) => {
+  if (typeof target[name] === 'function') {
+    target[name]();
+    return;
+  }
   const oldFashion = 'createEvent' in document;
   const event = oldFashion ? document.createEvent('Event') : new Event(name, {
     bubbles: true,
