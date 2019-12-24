@@ -51,7 +51,7 @@ const checkDesc = (el, desc) => {
 const haveYouEverSeen = el => youHaveSeenList.indexOf(el) > -1;
 
 const seen = el => {
-  youHaveSeenList.push(window);
+  youHaveSeenList.push(el);
   lookAtElement(el);
 };
 
